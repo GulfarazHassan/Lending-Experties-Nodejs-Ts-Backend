@@ -13,10 +13,21 @@ class CommunityMemberProfilesController {
       user_id,
       req.body
     );
-    console.log('updatedProfile :: ', updatedProfile);
+
     return res.status(200).json({
       message: 'Community Member Profile Updated',
       profile: updatedProfile,
+    });
+  }
+
+  async getMyProfileFromToken(req: express.Request, res: express.Response) {
+    const { user_id } = res.locals.jwt;
+
+    const profile = await communityMemberProfilesService.readById(user_id);
+
+    return res.status(200).json({
+      message: 'Community Member Profile',
+      profile: profile,
     });
   }
 }

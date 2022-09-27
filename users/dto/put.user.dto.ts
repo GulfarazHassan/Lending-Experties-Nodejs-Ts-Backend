@@ -1,8 +1,10 @@
 export interface PutUserDto {
-  id: string;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
-  permissionLevel: number;
+  user_type: string;
+  community_member_profile_id: string;
+  business_owners_profile_id: string;
+  non_profit_organisation_profile_id: string;
+  financial_guide_profile_id: string;
+  business_owner_profile_id: string;
 }

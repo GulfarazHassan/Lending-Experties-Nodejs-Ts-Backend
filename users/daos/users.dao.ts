@@ -2,7 +2,6 @@ import { CreateUserDto } from '../dto/create.user.dto';
 import { PatchUserDto } from '../dto/patch.user.dto';
 import { PutUserDto } from '../dto/put.user.dto';
 import mongooseService from '../../common/services/mongoose.service';
-import shortid from 'shortid';
 import debug from 'debug';
 
 const log: debug.IDebugger = debug('app:in-memory-dao');
@@ -13,6 +12,22 @@ class UsersDao {
     email: { type: String },
     password: { type: String, select: false },
     user_type: { type: String },
+    community_member_profile_id: {
+      type: this.Schema.Types.ObjectId,
+      ref: 'CommunityMemberProfiles',
+    },
+    business_owner_profile_id: {
+      type: this.Schema.Types.ObjectId,
+      ref: 'BusinessOwnerProfiles',
+    },
+    non_profit_organisation_profile_id: {
+      type: this.Schema.Types.ObjectId,
+      ref: 'NonProfitOrganisationProfiles',
+    },
+    financial_guide_profile_id: {
+      type: this.Schema.Types.ObjectId,
+      ref: 'FinancialGuideProfiles',
+    },
   });
 
   User = mongooseService.getMongoose().model('Users', this.userSchema);
@@ -23,7 +38,6 @@ class UsersDao {
   async addUser(userFields: CreateUserDto) {
     const user = new this.User({
       ...userFields,
-      permissionFlags: 1,
     });
     await user.save();
     return user;
