@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibm9uUHJvZml0T3JnYW5pc2F0aW9uUHJvZmlsZXMuZHRvLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL05vblByb2ZpdE9yZ2FuaXNhdGlvblByb2ZpbGVzL2R0by9ub25Qcm9maXRPcmdhbmlzYXRpb25Qcm9maWxlcy5kdG8udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9
+//# sourceMappingURL=nonProfitOrganisationProfiles.dto.js.map

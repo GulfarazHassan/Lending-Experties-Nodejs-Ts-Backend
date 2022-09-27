@@ -58,16 +58,16 @@ class JwtMiddleware {
       try {
         const authorization = req.headers['authorization'].split(' ');
         if (authorization[0] !== 'Bearer') {
-          return res.status(401).send({ error: 'Not logged in' });
+          res.status(401).send({ error: 'Not logged in' });
         } else {
           res.locals.jwt = jwt.verify(authorization[1], jwtSecret) as Jwt;
           next();
         }
       } catch (err) {
-        return res.status(403).send({ error: 'Not authorize to access' });
+        res.status(403).send({ error: 'Not authorize to access' });
       }
     } else {
-      return res.status(401).send({ error: 'Not logged in' });
+      res.status(401).send({ error: 'Not logged in' });
     }
   }
 }
