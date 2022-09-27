@@ -12,7 +12,7 @@ import cors from 'cors';
 import { CommonRoutesConfig } from './common/common.routes.config';
 import { UsersRoutes } from './Users/users.routes.config';
 import { AuthRoutes } from './Auth/auth.routes.config';
-import { CommunityMemberProfilesRoutes } from './communityMemberProfiles/communityMemberProfiles.routes.config';
+import { CommunityMemberProfilesRoutes } from './CommunityMemberProfiles/communityMemberProfiles.routes.config';
 import { BusinessOwnerProfilesRoutes } from './BusinessOwnerProfiles/businessOwnerProfiles.routes.config';
 import { NonProfitOrganisationProfilesRoutes } from './NonProfitOrganisationProfiles/nonProfitOrganisationProfiles.routes.config';
 import { FinancialGuideProfilesRoutes } from './FinancialGuideProfiles/financialGuideProfiles.routes.config';
