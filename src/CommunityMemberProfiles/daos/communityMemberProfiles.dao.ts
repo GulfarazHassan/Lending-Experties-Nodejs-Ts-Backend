@@ -25,9 +25,11 @@ class CommunityMemberProfilesDao {
     is_phone_number_confirmed: { type: Boolean, default: false },
   });
 
-  CommunityMemberProfile = mongooseService
-    .getMongoose()
-    .model('CommunityMemberProfiles', this.CommunityMemberProfileSchema);
+  CommunityMemberProfile =
+    mongooseService.getMongoose().models.CommunityMemberProfiles ||
+    mongooseService
+      .getMongoose()
+      .model('CommunityMemberProfiles', this.CommunityMemberProfileSchema);
 
   constructor() {
     log('create new instance in Profile');
