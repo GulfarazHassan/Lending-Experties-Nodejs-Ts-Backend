@@ -28,9 +28,11 @@ class BusinessOwnerProfiles {
     is_phone_number_confirmed: { type: Boolean, default: false },
   });
 
-  CommunityMemberProfile = mongooseService
-    .getMongoose()
-    .model('BusinessOwnerProfiles', this.CommunityMemberProfileSchema);
+  CommunityMemberProfile =
+    mongooseService.getMongoose().models.BusinessOwnerProfiles ||
+    mongooseService
+      .getMongoose()
+      .model('BusinessOwnerProfiles', this.CommunityMemberProfileSchema);
 
   constructor() {
     log('create new instance in communityMemberProfile');

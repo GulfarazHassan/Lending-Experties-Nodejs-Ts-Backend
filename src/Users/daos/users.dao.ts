@@ -30,7 +30,9 @@ class UsersDao {
     },
   });
 
-  User = mongooseService.getMongoose().model('Users', this.userSchema);
+  User =
+    mongooseService.getMongoose().models.Users ||
+    mongooseService.getMongoose().model('Users', this.userSchema);
   constructor() {
     log('create new instance in user');
   }

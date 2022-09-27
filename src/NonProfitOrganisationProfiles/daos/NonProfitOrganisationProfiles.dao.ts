@@ -25,9 +25,14 @@ class NonProfitOrganisationProfiles {
     is_phone_number_confirmed: { type: Boolean, default: false },
   });
 
-  CommunityMemberProfile = mongooseService
-    .getMongoose()
-    .model('NonProfitOrganisationProfiles', this.CommunityMemberProfileSchema);
+  CommunityMemberProfile =
+    mongooseService.getMongoose().models.NonProfitOrganisationProfiles ||
+    mongooseService
+      .getMongoose()
+      .model(
+        'NonProfitOrganisationProfiles',
+        this.CommunityMemberProfileSchema
+      );
 
   constructor() {
     log('create new instance Profile');

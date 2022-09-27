@@ -51,9 +51,11 @@ class FinancialGuideProfiles {
     },
   });
 
-  FinancialGuideProfile = mongooseService
-    .getMongoose()
-    .model('FinancialGuideProfiles', this.CommunityMemberProfileSchema);
+  FinancialGuideProfile =
+    mongooseService.getMongoose().models.FinancialGuideProfiles ||
+    mongooseService
+      .getMongoose()
+      .model('FinancialGuideProfiles', this.CommunityMemberProfileSchema);
 
   constructor() {
     log('create new instance in Profile');
