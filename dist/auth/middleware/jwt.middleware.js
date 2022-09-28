@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const crypto_1 = __importDefault(require("crypto"));
-const users_service_1 = __importDefault(require("../../Users/services/users.service"));
+const users_service_1 = __importDefault(require("../../users/services/users.service"));
 // @ts-expect-error
 const jwtSecret = process.env.JWT_SECRET;
 class JwtMiddleware {

@@ -3,7 +3,7 @@ import debug from 'debug';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import * as argon2 from 'argon2';
-import usersService from '../../Users/services/users.service';
+import usersService from '../../users/services/users.service';
 import CommunityMemberProfilesService from '../../communityMemberProfiles/services/communityMemberProfiles.service';
 import { UserTypeEnum } from '../../common/enum/common.userType.enum';
 import businessOwnerProfilesServiceService from '../../BusinessOwnerProfiles/services/businessOwnerProfilesService.service';
