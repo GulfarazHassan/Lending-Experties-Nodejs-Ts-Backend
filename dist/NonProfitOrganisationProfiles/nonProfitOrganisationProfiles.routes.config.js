@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NonProfitOrganisationProfilesRoutes = void 0;
 const common_routes_config_1 = require("../common/common.routes.config");
 const nonProfitOrganisationProfiles_controller_1 = __importDefault(require("./controllers/nonProfitOrganisationProfiles.controller"));
-const jwt_middleware_1 = __importDefault(require("../Auth/middleware/jwt.middleware"));
+const jwt_middleware_1 = __importDefault(require("../auth/middleware/jwt.middleware"));
 class NonProfitOrganisationProfilesRoutes extends common_routes_config_1.CommonRoutesConfig {
     constructor(app) {
         super(app, 'NonProfitOrganisationProfilesRoutes');

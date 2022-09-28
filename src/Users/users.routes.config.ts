@@ -4,7 +4,7 @@ import UsersMiddleware from './middleware/users.middleware';
 import express from 'express';
 import { body } from 'express-validator';
 import BodyValidationMiddleware from '../common/middleware/body.validation.middleware';
-import jwtMiddleware from '../Auth/middleware/jwt.middleware';
+import jwtMiddleware from '../auth/middleware/jwt.middleware';
 
 export class UsersRoutes extends CommonRoutesConfig {
   constructor(app: express.Application) {

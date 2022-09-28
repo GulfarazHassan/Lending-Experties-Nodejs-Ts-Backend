@@ -1,7 +1,7 @@
 import express from 'express';
 import { CommonRoutesConfig } from '../common/common.routes.config';
 import BusinessOwnerProfiles from './controllers/businessOwnerProfiles.controller';
-import jwtMiddleware from '../Auth/middleware/jwt.middleware';
+import jwtMiddleware from '../auth/middleware/jwt.middleware';
 
 export class BusinessOwnerProfilesRoutes extends CommonRoutesConfig {
   constructor(app: express.Application) {

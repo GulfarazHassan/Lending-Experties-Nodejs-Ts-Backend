@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BusinessOwnerProfilesRoutes = void 0;
 const common_routes_config_1 = require("../common/common.routes.config");
 const businessOwnerProfiles_controller_1 = __importDefault(require("./controllers/businessOwnerProfiles.controller"));
-const jwt_middleware_1 = __importDefault(require("../Auth/middleware/jwt.middleware"));
+const jwt_middleware_1 = __importDefault(require("../auth/middleware/jwt.middleware"));
 class BusinessOwnerProfilesRoutes extends common_routes_config_1.CommonRoutesConfig {
     constructor(app) {
         super(app, 'BusinessOwnerProfilesRoutes');

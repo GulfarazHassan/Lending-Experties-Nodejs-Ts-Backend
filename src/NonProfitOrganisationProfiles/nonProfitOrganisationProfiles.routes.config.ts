@@ -1,7 +1,7 @@
 import express from 'express';
 import { CommonRoutesConfig } from '../common/common.routes.config';
 import NonProfitOrganisationProfiles from './controllers/nonProfitOrganisationProfiles.controller';
-import jwtMiddleware from '../Auth/middleware/jwt.middleware';
+import jwtMiddleware from '../auth/middleware/jwt.middleware';
 
 export class NonProfitOrganisationProfilesRoutes extends CommonRoutesConfig {
   constructor(app: express.Application) {
