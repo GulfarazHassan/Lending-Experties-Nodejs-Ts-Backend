@@ -4,11 +4,7 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import * as argon2 from 'argon2';
 import usersService from '../../users/services/users.service';
-import CommunityMemberProfilesService from '../../communityMemberProfiles/services/communityMemberProfiles.service';
 import { UserTypeEnum } from '../../common/enum/common.userType.enum';
-import businessOwnerProfilesServiceService from '../../BusinessOwnerProfiles/services/businessOwnerProfilesService.service';
-import nonProfitOrganisationProfilesService from '../../NonProfitOrganisationProfiles/services/nonProfitOrganisationProfiles.service';
-import financialGuideProfilesService from '../../FinancialGuideProfiles/services/financialGuideProfiles.service';
 
 const log: debug.IDebugger = debug('app:auth-controller');
 
@@ -51,40 +47,22 @@ class AuthController {
       user_type: user.user_type,
     };
     const token = jwt.sign(userJwt, jwtSecret);
-    if (user.user_type === 'community_member') {
-      const community_member_profile =
-        await CommunityMemberProfilesService.create(userJwt);
-      await usersService.patchById(userJwt.user_id.toString(), {
-        community_member_profile_id: community_member_profile._id.toString(),
-      });
-    }
-
-    if (user.user_type === 'business_owners') {
-      const business_owner_profile =
-        await businessOwnerProfilesServiceService.create(userJwt);
-      await usersService.patchById(userJwt.user_id.toString(), {
-        business_owner_profile_id: business_owner_profile._id.toString(),
-      });
-    }
-
-    if (user.user_type === 'non_profit_organisation') {
-      const non_profit_organisation_profile =
-        await nonProfitOrganisationProfilesService.create(userJwt);
-      await usersService.patchById(userJwt.user_id.toString(), {
-        non_profit_organisation_profile_id:
-          non_profit_organisation_profile._id.toString(),
-      });
-    }
-
-    if (user.user_type === 'financial_guide') {
-      const financial_guide_profile =
-        await financialGuideProfilesService.create(userJwt);
-      await usersService.patchById(userJwt.user_id.toString(), {
-        financial_guide_profile_id: financial_guide_profile._id.toString(),
-      });
-    }
 
     return res.status(201).json({ accessToken: token, user: userJwt });
+  }
+
+  async resetPassword(req: express.Request, res: express.Response) {
+    const { current_password, new_password } = req.body;
+    const { email } = res.locals.jwt;
+
+    const user: any = await usersService.getUserByEmailWithPassword(email);
+    if (await argon2.verify(user.password, current_password)) {
+      user.password = await argon2.hash(new_password);
+      await user.save();
+      return res.status(400).json({ message: 'Password Updated' });
+    } else {
+      return res.status(400).json({ message: 'Incorrect current password' });
+    }
   }
 }
 

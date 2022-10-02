@@ -26,6 +26,7 @@ class MongooseService {
         this.mongooseOptions
       )
       .then(() => {
+        console.log('Mondo db connected');
         log('MongoDB is connected');
       })
       .catch((err) => {

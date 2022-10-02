@@ -12,13 +12,11 @@ import cors from 'cors';
 import { CommonRoutesConfig } from './common/common.routes.config';
 import { UsersRoutes } from './users/users.routes.config';
 import { AuthRoutes } from './auth/auth.routes.config';
-import { CommunityMemberProfilesRoutes } from './communityMemberProfiles/communityMemberProfiles.routes.config';
-import { BusinessOwnerProfilesRoutes } from './BusinessOwnerProfiles/businessOwnerProfiles.routes.config';
-import { NonProfitOrganisationProfilesRoutes } from './NonProfitOrganisationProfiles/nonProfitOrganisationProfiles.routes.config';
-import { FinancialGuideProfilesRoutes } from './FinancialGuideProfiles/financialGuideProfiles.routes.config';
+import { UploadFileRoutes } from './uploadFile/uploadFile.routes';
 import debug from 'debug';
 
 const app: express.Application = express();
+app.use(require('express-fileupload')());
 const server: http.Server = http.createServer(app);
 const port = process.env.PORT;
 const routes: Array<CommonRoutesConfig> = [];
@@ -52,10 +50,7 @@ app.use(expressWinston.logger(loggerOptions));
 // after sending the Express.js application object to have the routes added to our app!
 routes.push(new UsersRoutes(app));
 routes.push(new AuthRoutes(app));
-routes.push(new CommunityMemberProfilesRoutes(app));
-routes.push(new BusinessOwnerProfilesRoutes(app));
-routes.push(new NonProfitOrganisationProfilesRoutes(app));
-routes.push(new FinancialGuideProfilesRoutes(app));
+routes.push(new UploadFileRoutes(app));
 
 // this is a simple route to make sure everything is working properly
 const runningMessage = `Server running at http://localhost:${port}`;

@@ -1,5 +1,6 @@
 import { CommonRoutesConfig } from '../common/common.routes.config';
 import authController from './controllers/auth.controller';
+import userController from '../users/controllers/users.controller';
 import authMiddleware from './middleware/auth.middleware';
 import express from 'express';
 import BodyValidationMiddleware from '../common/middleware/body.validation.middleware';
@@ -29,11 +30,26 @@ export class AuthRoutes extends CommonRoutesConfig {
       authController.signupUser,
     ]);
 
-    this.app.post(`/auth/refresh-token`, [
+    this.app.post(`/auth/reset_Password`, [
+      body('current_password').isString(),
+      body('new_password').isString(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
       jwtMiddleware.validJWTNeeded,
-      jwtMiddleware.verifyRefreshBodyField,
-      jwtMiddleware.validRefreshNeeded,
-      authController.createJWT,
+      authController.resetPassword,
+    ]);
+
+    this.app.post(`/auth/common/send_otp_code`, [
+      body('phone_number').isString(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      jwtMiddleware.validJWTNeeded,
+      userController.sendOtpCode,
+    ]);
+
+    this.app.post(`/auth/common/verify_otp_code`, [
+      body('otp_code').isNumeric(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      jwtMiddleware.validJWTNeeded,
+      userController.verifyOtp,
     ]);
 
     return this.app;

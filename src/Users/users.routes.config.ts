@@ -13,51 +13,46 @@ export class UsersRoutes extends CommonRoutesConfig {
 
   configureRoutes() {
     this.app
-      .route(`/users`)
-      .get(jwtMiddleware.validJWTNeeded, UsersController.listUsers)
-      .post(
-        body('email').isEmail(),
-        body('password')
-          .isLength({ min: 5 })
-          .withMessage('Must include password (5+ characters)'),
-        BodyValidationMiddleware.verifyBodyFieldsErrors,
-        UsersMiddleware.validateSameEmailDoesntExist,
-        UsersController.createUser
+      .route(`/business_owner_profile`)
+      .patch(jwtMiddleware.validJWTNeeded, UsersController.patchBusinessOwner);
+
+    this.app
+      .route(`/business_owner_profile/my_profile`)
+      .get(jwtMiddleware.validJWTNeeded, UsersController.getUserById);
+
+    this.app
+      .route(`/business_owner_profile/send_otp_code`)
+      .post(jwtMiddleware.validJWTNeeded, UsersController.sendOtpCode);
+
+    this.app
+      .route(`/community_member_profile`)
+      .patch(
+        jwtMiddleware.validJWTNeeded,
+        UsersController.patchCommunityMember
       );
 
-    this.app.param(`userId`, UsersMiddleware.extractUserId);
     this.app
-      .route(`/users/:userId`)
-      .all(UsersMiddleware.validateUserExists, jwtMiddleware.validJWTNeeded)
-      .get(UsersController.getUserById)
-      .delete(UsersController.removeUser);
+      .route(`/community_member_profile/my_profile`)
+      .get(jwtMiddleware.validJWTNeeded, UsersController.getUserById);
 
-    this.app.put(`/users/:userId`, [
-      body('email').isEmail(),
-      body('password')
-        .isLength({ min: 5 })
-        .withMessage('Must include password (5+ characters)'),
-      body('firstName').isString(),
-      body('lastName').isString(),
-      body('permissionFlags').isInt(),
-      BodyValidationMiddleware.verifyBodyFieldsErrors,
-      UsersMiddleware.validateSameEmailBelongToSameUser,
-      UsersController.put,
-    ]);
+    this.app
+      .route(`/non_profit_organisation_profile`)
+      .patch(
+        jwtMiddleware.validJWTNeeded,
+        UsersController.patchNonProfitOrganization
+      );
 
-    this.app.patch(`/users/:userId`, [
-      body('email').isEmail().optional(),
-      body('password')
-        .isLength({ min: 5 })
-        .withMessage('Password must be 5+ characters')
-        .optional(),
-      body('firstName').isString().optional(),
-      body('lastName').isString().optional(),
-      body('permissionFlags').isInt().optional(),
-      BodyValidationMiddleware.verifyBodyFieldsErrors,
-      UsersMiddleware.validatePatchEmail,
-      UsersController.patch,
-    ]);
+    this.app
+      .route(`/non_profit_organisation_profile/my_profile`)
+      .get(jwtMiddleware.validJWTNeeded, UsersController.getUserById);
+
+    this.app
+      .route(`/financial_guide_profile`)
+      .patch(jwtMiddleware.validJWTNeeded, UsersController.patchFinancialGuide);
+
+    this.app
+      .route(`/financial_guide_profile/my_profile`)
+      .get(jwtMiddleware.validJWTNeeded, UsersController.getUserById);
 
     return this.app;
   }

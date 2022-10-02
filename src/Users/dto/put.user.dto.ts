@@ -2,9 +2,21 @@ export interface PutUserDto {
   email: string;
   password: string;
   user_type: string;
-  community_member_profile_id: string;
-  business_owners_profile_id: string;
-  non_profit_organisation_profile_id: string;
-  financial_guide_profile_id: string;
-  business_owner_profile_id: string;
+  profile_image?: string;
+  cover_image?: string;
+  first_name?: string;
+  last_name?: string;
+  gender?: string;
+  birthday?: string;
+  city?: string;
+  State?: string;
+  zipCode?: string;
+  business_name?: string;
+  business_address?: string;
+  business_ein?: string;
+  anual_revenue?: string;
+  business_owned?: string;
+  are_you_bilingual?: boolean;
+  other_languages?: [string];
+  phone_number?: string;
 }

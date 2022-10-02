@@ -3,6 +3,9 @@ import { CRUD } from '../../common/interfaces/crud.interface';
 import { CreateUserDto } from '../dto/create.user.dto';
 import { PutUserDto } from '../dto/put.user.dto';
 import { PatchUserDto } from '../dto/patch.user.dto';
+import { UpdateCommunityMemberDto } from '../dto/communityMemberProfiles.dto';
+import { UpdateProfileOrganizationDto } from '../dto/nonProfitOrganisationProfiles.dto';
+import { UpdateFinancialGuideDto } from '../dto/financialGuideProfiles.dto';
 
 class UsersService implements CRUD {
   async create(resource: CreateUserDto) {
@@ -18,6 +21,27 @@ class UsersService implements CRUD {
   }
 
   async patchById(id: string, resource: PatchUserDto) {
+    const response = await UsersDao.updateUserById(id, resource);
+    return response;
+  }
+
+  async patchCommunityMemberById(
+    id: string,
+    resource: UpdateCommunityMemberDto
+  ) {
+    const response = await UsersDao.updateUserById(id, resource);
+    return response;
+  }
+
+  async patchNonProfitOrganizationById(
+    id: string,
+    resource: UpdateProfileOrganizationDto
+  ) {
+    const response = await UsersDao.updateUserById(id, resource);
+    return response;
+  }
+
+  async patchFinancialGuideById(id: string, resource: UpdateFinancialGuideDto) {
     const response = await UsersDao.updateUserById(id, resource);
     return response;
   }
