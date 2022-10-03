@@ -106,6 +106,8 @@ class UsersController {
     const { phone_number } = req.body;
     const { user_id } = res.locals.jwt;
     const user = await usersService.readById(user_id);
+    console.log('accountSid :: ', accountSid);
+    console.log('authToken :: ', authToken);
     if (user) {
       user.otp_code = number;
       user.phone_number = phone_number;
@@ -120,6 +122,7 @@ class UsersController {
           res.status(200).json({ message: `OTP sent to ${phone_number}` })
         )
         .catch((e: any) => {
+          console.log('eeror :: ', e);
           res
             .status(400)
             .json({ message: `Please register your number in twilio first` });
