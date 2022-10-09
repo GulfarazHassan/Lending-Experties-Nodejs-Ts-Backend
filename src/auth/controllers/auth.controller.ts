@@ -25,43 +25,50 @@ class AuthController {
 
       return res.status(201).json({ accessToken: token, user: req.body.user });
     } catch (err) {
-      log('createJWT error: %O', err);
-      return res.status(500).send();
+      return res.status(500).json({ message: 'Error occured', success: false });
     }
   }
 
   async signupUser(req: express.Request, res: express.Response) {
-    let { email, password, user_type } = req.body;
-    const isUserTypeValid = Object.values(UserTypeEnum)?.includes(user_type);
-    if (!isUserTypeValid) {
-      return res.status(400).json({
-        error:
-          "user_type must be in ['community_member', 'business_owners', 'non_profit_organisation, 'financial_guide'']",
-      });
-    }
-    password = await argon2.hash(password);
-    const user = await usersService.create({ email, password, user_type });
-    const userJwt = {
-      user_id: user._id || '',
-      email: email,
-      user_type: user.user_type,
-    };
-    const token = jwt.sign(userJwt, jwtSecret);
+    try {
+      let { email, password, user_type } = req.body;
+      const isUserTypeValid = Object.values(UserTypeEnum)?.includes(user_type);
+      if (!isUserTypeValid) {
+        return res.status(400).json({
+          error:
+            "user_type must be in ['community_member', 'business_owners', 'non_profit_organisation, 'financial_guide'']",
+        });
+      }
+      password = await argon2.hash(password);
+      const user = await usersService.create({ email, password, user_type });
+      const userJwt = {
+        user_id: user._id || '',
+        email: email,
+        user_type: user.user_type,
+      };
+      const token = jwt.sign(userJwt, jwtSecret);
 
-    return res.status(201).json({ accessToken: token, user: userJwt });
+      return res.status(201).json({ accessToken: token, user: userJwt });
+    } catch (e) {
+      return res.status(500).json({ success: false, message: 'Error occured' });
+    }
   }
 
   async resetPassword(req: express.Request, res: express.Response) {
-    const { current_password, new_password } = req.body;
-    const { email } = res.locals.jwt;
+    try {
+      const { current_password, new_password } = req.body;
+      const { email } = res.locals.jwt;
 
-    const user: any = await usersService.getUserByEmailWithPassword(email);
-    if (await argon2.verify(user.password, current_password)) {
-      user.password = await argon2.hash(new_password);
-      await user.save();
-      return res.status(400).json({ message: 'Password Updated' });
-    } else {
-      return res.status(400).json({ message: 'Incorrect current password' });
+      const user: any = await usersService.getUserByEmailWithPassword(email);
+      if (await argon2.verify(user.password, current_password)) {
+        user.password = await argon2.hash(new_password);
+        await user.save();
+        return res.status(400).json({ message: 'Password Updated' });
+      } else {
+        return res.status(400).json({ message: 'Incorrect current password' });
+      }
+    } catch (e) {
+      return res.status(500).json({ success: false, message: 'Error occured' });
     }
   }
 }
