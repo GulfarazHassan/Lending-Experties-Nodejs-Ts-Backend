@@ -56,15 +56,35 @@ class PostsDao {
   }
 
   async getPostsByUserId(id: string) {
-    return this.Post.find({ user_id: id }).exec();
+    console.log('getPostsByUserId');
+    return this.Post.find({ user_id: id })
+      .populate(
+        'post_comments.user_id',
+        'profile_image user_type first_name last_name'
+      )
+      .populate('user_id', 'profile_image user_type first_name last_name')
+      .exec();
   }
 
   async getPostsByType(type: string) {
-    return this.Post.find({ post_type: type }).exec();
+    console.log('getPostsByType');
+    return this.Post.find({ post_type: type })
+      .populate(
+        'post_comments.user_id',
+        'profile_image user_type first_name last_name'
+      )
+      .populate('user_id', 'profile_image user_type first_name last_name')
+      .exec();
   }
 
   async getPostById(id: string) {
-    return this.Post.findById(id).exec();
+    return this.Post.findById(id)
+      .populate(
+        'post_comments.user_id',
+        'profile_image user_type first_name last_name'
+      )
+      .populate('user_id', 'profile_image user_type first_name last_name')
+      .exec();
   }
 
   async updatePostById(fields: UpdatePostDto, id: string) {
@@ -91,7 +111,13 @@ class PostsDao {
   }
 
   async getAllPosts() {
-    return this.Post.find().exec();
+    return this.Post.find()
+      .populate(
+        'post_comments.user_id',
+        'profile_image user_type first_name last_name'
+      )
+      .populate('user_id', 'profile_image user_type first_name last_name')
+      .exec();
   }
 }
 

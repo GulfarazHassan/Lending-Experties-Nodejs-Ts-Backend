@@ -136,6 +136,7 @@ class PostsController {
 
   async getPostById(req: express.Request, res: express.Response) {
     try {
+      console.log('dasdas aa');
       const { post_id }: any = req.query;
       const chec_id = mongoose.isValidObjectId(post_id);
       if (!chec_id) {
