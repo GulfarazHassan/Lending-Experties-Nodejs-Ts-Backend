@@ -110,20 +110,26 @@ class PostsController {
         let likes: any = [...post.post_likes];
         const findUser = likes.find((d: String) => d == user_id);
         if (findUser) {
-          return res
-            .status(200)
-            .json({ success: false, message: 'User already like this post' });
+          likes = likes.filter((d: String) => d != user_id);
+          const postUpdate = await postsService.updatePostCommentLikeById(
+            {
+              post_likes: likes,
+              post_total_likes_count: likes.length,
+            },
+            post_id
+          );
+          return res.status(200).json({ success: true, data: postUpdate });
+        } else {
+          likes.push(user_id);
+          const postUpdate = await postsService.updatePostCommentLikeById(
+            {
+              post_likes: likes,
+              post_total_likes_count: likes.length,
+            },
+            post_id
+          );
+          return res.status(200).json({ success: true, data: postUpdate });
         }
-
-        likes.push(user_id);
-        const postUpdate = await postsService.updatePostCommentLikeById(
-          {
-            post_likes: likes,
-            post_total_likes_count: likes.length,
-          },
-          post_id
-        );
-        return res.status(200).json({ success: true, data: postUpdate });
       } else {
         return res
           .status(404)
@@ -136,7 +142,6 @@ class PostsController {
 
   async getPostById(req: express.Request, res: express.Response) {
     try {
-      console.log('dasdas aa');
       const { post_id }: any = req.query;
       const chec_id = mongoose.isValidObjectId(post_id);
       if (!chec_id) {

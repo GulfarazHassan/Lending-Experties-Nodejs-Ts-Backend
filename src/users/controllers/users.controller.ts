@@ -143,8 +143,6 @@ class UsersController {
       const { phone_number } = req.body;
       const { user_id } = res.locals.jwt;
       const user = await usersService.readById(user_id);
-      console.log('accountSid :: ', accountSid);
-      console.log('authToken :: ', authToken);
       if (user) {
         user.otp_code = number;
         user.phone_number = phone_number;

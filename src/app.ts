@@ -13,6 +13,7 @@ import { CommonRoutesConfig } from './common/common.routes.config';
 import { UsersRoutes } from './users/users.routes.config';
 import { AuthRoutes } from './auth/auth.routes.config';
 import { PostRoutes } from './posts/posts.routes.config';
+import { MeetingRequestRoutes } from './meeting/meeting.routes.config';
 import { UploadFileRoutes } from './uploadFile/uploadFile.routes';
 import debug from 'debug';
 
@@ -53,6 +54,7 @@ routes.push(new UsersRoutes(app));
 routes.push(new AuthRoutes(app));
 routes.push(new UploadFileRoutes(app));
 routes.push(new PostRoutes(app));
+routes.push(new MeetingRequestRoutes(app));
 
 // this is a simple route to make sure everything is working properly
 const runningMessage = `Server running at http://localhost:${port}`;

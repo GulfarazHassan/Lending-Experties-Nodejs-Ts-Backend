@@ -97,6 +97,15 @@ class UsersDao {
       .exec();
   }
 
+  async getFinancialGuidesWithType(areas_of_financial_knowledge: string) {
+    return this.User.find({
+      user_type: 'financial_guide',
+      areas_of_financial_knowledge: {
+        $elemMatch: { $eq: areas_of_financial_knowledge },
+      },
+    }).exec();
+  }
+
   async updateUserById(userId: string, userFields: PatchUserDto | PutUserDto) {
     const existingUser = await this.User.findOneAndUpdate(
       { _id: userId },

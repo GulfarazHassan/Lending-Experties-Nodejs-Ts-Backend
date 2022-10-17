@@ -30,6 +30,7 @@ class MongooseService {
         log('MongoDB is connected');
       })
       .catch((err) => {
+        console.log('Mondo db not connected');
         const retrySeconds = 5;
         log(
           `MongoDB connection unsuccessful (will retry #${++this
