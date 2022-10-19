@@ -14,7 +14,8 @@ const jwtSecret: string = process.env.JWT_SECRET;
 class AuthController {
   async createJWT(req: express.Request, res: express.Response) {
     try {
-      const refreshId = req.body.userId + jwtSecret;
+      console.log('req.body.userId :: ', req.body.user.user_id);
+      const refreshId = req.body.user.user_id + jwtSecret;
       const salt = crypto.createSecretKey(crypto.randomBytes(16));
       const hash = crypto
         .createHmac('sha512', salt)
@@ -22,7 +23,7 @@ class AuthController {
         .digest('base64');
       req.body.refreshKey = salt.export();
       const token = jwt.sign(req.body.user, jwtSecret);
-
+      console.log('req.body.user :: ', req.body.user);
       return res.status(201).json({ accessToken: token, user: req.body.user });
     } catch (err) {
       return res.status(500).json({ message: 'Error occured', success: false });

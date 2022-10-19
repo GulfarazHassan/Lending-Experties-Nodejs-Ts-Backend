@@ -13,6 +13,7 @@ class AuthMiddleware {
     );
     if (user) {
       const passwordHash = user.password;
+      console.log('sadsa :: ', user);
       if (await argon2.verify(passwordHash, req.body.password)) {
         req.body.user = {
           user_id: user._id,
