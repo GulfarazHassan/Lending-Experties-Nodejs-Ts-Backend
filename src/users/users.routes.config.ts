@@ -54,6 +54,10 @@ export class UsersRoutes extends CommonRoutesConfig {
       .route(`/financial_guide_profile/my_profile`)
       .get(jwtMiddleware.validJWTNeeded, UsersController.getUserById);
 
+    this.app
+      .route(`/user/info`)
+      .get(jwtMiddleware.validJWTNeeded, UsersController.getUserById);
+
     return this.app;
   }
 }
