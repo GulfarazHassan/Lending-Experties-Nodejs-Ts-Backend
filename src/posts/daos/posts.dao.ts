@@ -19,6 +19,8 @@ class PostsDao {
       post_title: { type: String, default: '' },
       post_description: { type: String, default: '' },
       post_images_link: { type: [{ type: String }], default: [] },
+      address: { type: String, default: '' },
+      time: { type: String, default: '' },
       post_likes: {
         type: [{ type: this.Schema.Types.ObjectId, ref: 'Users' }],
         default: [],

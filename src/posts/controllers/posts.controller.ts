@@ -9,8 +9,14 @@ const log: debug.IDebugger = debug('app:users-controller');
 class PostsController {
   async createPost(req: express.Request, res: express.Response) {
     try {
-      const { post_type, post_title, post_description, post_images_link } =
-        req.body;
+      const {
+        post_type,
+        post_title,
+        post_description,
+        post_images_link,
+        address,
+        time,
+      } = req.body;
       const { user_id } = res.locals.jwt;
 
       const isPostTypeValid =
@@ -28,6 +34,8 @@ class PostsController {
         post_title,
         post_description,
         post_images_link,
+        address,
+        time,
       });
       return res.status(200).json({ success: true, data: post });
     } catch (e) {
@@ -43,6 +51,8 @@ class PostsController {
         post_description,
         post_images_link,
         post_id,
+        address,
+        time,
       } = req.body;
 
       if (post_type) {
@@ -62,6 +72,8 @@ class PostsController {
           post_title,
           post_description,
           post_images_link,
+          address,
+          time,
         },
         post_id
       );

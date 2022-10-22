@@ -4,6 +4,8 @@ export interface CreatePostDto {
   post_title?: string;
   post_description?: string;
   post_images_link?: [string];
+  address?: string;
+  time?: string;
 }
 
 export interface UpdatePostDto {
@@ -11,6 +13,8 @@ export interface UpdatePostDto {
   post_title?: string;
   post_description?: string;
   post_images_link?: [string];
+  address?: string;
+  time?: string;
 }
 
 export interface UpdatePostCommentsLikesDto {
