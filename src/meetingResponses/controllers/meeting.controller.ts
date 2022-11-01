@@ -36,8 +36,16 @@ class MeetingController {
   async getUserMeeting(req: express.Request, res: express.Response) {
     try {
       const { user_id } = req.params;
+      const { today, upcomming } = req.query;
 
-      const meetingReuests = await MeetingService.getByUserId(user_id);
+      let meetingReuests: any = [];
+      if (today) {
+        meetingReuests = await MeetingService.getByUserIdAndToday(user_id);
+      } else if (upcomming) {
+        meetingReuests = await MeetingService.getByUserIdAndUpcomming(user_id);
+      } else {
+        meetingReuests = await MeetingService.getByUserId(user_id);
+      }
 
       return res.status(200).json({ success: true, data: meetingReuests });
     } catch (e) {
@@ -48,10 +56,22 @@ class MeetingController {
   async getFinancialGuideMeeting(req: express.Request, res: express.Response) {
     try {
       const { financial_guide_id } = req.params;
+      const { today, upcomming } = req.query;
 
-      const meetingReuests = await MeetingService.getFinancicalGuideId(
-        financial_guide_id
-      );
+      let meetingReuests: any = [];
+      if (today) {
+        meetingReuests = await MeetingService.getFinancicalGuideIdAndToday(
+          financial_guide_id
+        );
+      } else if (upcomming) {
+        meetingReuests = await MeetingService.getFinancicalGuideIdAndUpcomming(
+          financial_guide_id
+        );
+      } else {
+        meetingReuests = await MeetingService.getFinancicalGuideId(
+          financial_guide_id
+        );
+      }
 
       return res.status(200).json({ success: true, data: meetingReuests });
     } catch (e) {
@@ -60,7 +80,6 @@ class MeetingController {
   }
 
   async getByIdMeetingRequest(req: express.Request, res: express.Response) {
-    console.log('sds');
     try {
       const { meeting_request_response_id } = req.params;
 

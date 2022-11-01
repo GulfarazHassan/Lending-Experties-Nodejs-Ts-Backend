@@ -14,8 +14,24 @@ class MeetingService {
     return MeetingDao.getMeetingsByUserId(id);
   }
 
+  async getByUserIdAndToday(id: string) {
+    return MeetingDao.getMeetingsByUserIdAndToday(id);
+  }
+
+  async getByUserIdAndUpcomming(id: string) {
+    return MeetingDao.getMeetingsByUserIdAndUpcomming(id);
+  }
+
   async getFinancicalGuideId(id: string) {
     return MeetingDao.getMeetingsFinanceUserId(id);
+  }
+
+  async getFinancicalGuideIdAndToday(id: string) {
+    return MeetingDao.getMeetingsFinanceUserIdAndToday(id);
+  }
+
+  async getFinancicalGuideIdAndUpcomming(id: string) {
+    return MeetingDao.getMeetingsFinanceUserIdAndUpComming(id);
   }
 
   async getAllMeetingRequest() {

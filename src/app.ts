@@ -9,6 +9,7 @@ import * as http from 'http';
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import cors from 'cors';
+import { Server } from 'socket.io';
 import { CommonRoutesConfig } from './common/common.routes.config';
 import { UsersRoutes } from './users/users.routes.config';
 import { AuthRoutes } from './auth/auth.routes.config';
@@ -63,6 +64,30 @@ const runningMessage = `Server running at http://localhost:${port}`;
 app.get('/', (req: express.Request, res: express.Response) => {
   res.status(200).send(runningMessage);
 });
+
+// const io = new Server(server, {
+//   cors: {
+//     origin: 'http://localhost:3000',
+//     methods: ['GET', 'POST'],
+//   },
+// });
+
+// io.on('connection', (socket) => {
+//   console.log(`User Connected: ${socket.id}`);
+
+//   socket.on('join_room', (data) => {
+//     socket.join(data);
+//     console.log(`User with ID: ${socket.id} joined room: ${data}`);
+//   });
+
+//   socket.on('send_message', (data) => {
+//     socket.to(data.room).emit('receive_message', data);
+//   });
+
+//   socket.on('disconnect', () => {
+//     console.log('User Disconnected', socket.id);
+//   });
+// });
 
 server.listen(port, () => {
   routes.forEach((route: CommonRoutesConfig) => {

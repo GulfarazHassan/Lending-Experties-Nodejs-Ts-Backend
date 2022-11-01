@@ -15,7 +15,9 @@ export interface UpdateCommunityMemberDto {
   State?: string;
   zipCode?: string;
   income_range?: string;
-  household_size?: string;
+  income_range_min?: number;
+  income_range_max?: number;
+  household_size?: number;
   referred_by_nonprofit_church_community?: boolean;
   are_you_bilingual?: boolean;
   phone_number?: string;

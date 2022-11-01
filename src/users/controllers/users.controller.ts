@@ -68,9 +68,35 @@ class UsersController {
   async patchCommunityMember(req: express.Request, res: express.Response) {
     try {
       const { user_id } = res.locals.jwt;
+      const { income_range_min, income_range_max, household_size } = req.body;
       if (req.body.password) {
         req.body.password = await argon2.hash(req.body.password);
       }
+
+      if (income_range_max <= 35000) {
+        req.body.cra_qualified_badge = 'CRA Qualified';
+      } else if (
+        income_range_min > 35000 &&
+        income_range_max <= 50000 &&
+        household_size >= 2
+      ) {
+        req.body.cra_qualified_badge = 'CRA Qualified';
+      } else if (
+        income_range_min > 50000 &&
+        income_range_max <= 80000 &&
+        household_size >= 3
+      ) {
+        req.body.cra_qualified_badge = 'CRA Qualified';
+      } else if (
+        income_range_min > 80000 &&
+        income_range_max <= 100000 &&
+        household_size >= 4
+      ) {
+        req.body.cra_qualified_badge = 'CRA Qualified';
+      } else {
+        req.body.cra_qualified_badge = '';
+      }
+
       const updatedProfile = await usersService.patchCommunityMemberById(
         user_id,
         req.body
@@ -81,6 +107,7 @@ class UsersController {
         profile: updatedProfile,
       });
     } catch (e) {
+      console.log('Errro :: ', e);
       return res.status(500).json({ success: false, message: 'Error occured' });
     }
   }

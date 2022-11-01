@@ -1,5 +1,6 @@
 import { CreateMeetingDto } from '../dto/meeting.dto';
 import mongooseService from '../../common/services/mongoose.service';
+import moment from 'moment';
 import debug from 'debug';
 
 const log: debug.IDebugger = debug('app:in-memory-dao');
@@ -49,8 +50,99 @@ class MeetingDao {
       .exec();
   }
 
+  async getMeetingsByUserIdAndToday(id: string) {
+    let todayDate = moment()
+      .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+      .format();
+
+    let todayDate2 = moment()
+      .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+      .add('days', 1)
+      .format();
+    console.log('todayDate :: ', todayDate);
+    return this.Meeting.find({
+      user_id: id,
+      date_and_time: { $gte: todayDate, $lt: todayDate2 },
+    })
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .populate(
+        'finance_user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .exec();
+  }
+
+  async getMeetingsByUserIdAndUpcomming(id: string) {
+    let todayDate = moment()
+      .add('days', 1)
+      .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+      .format();
+
+    return this.Meeting.find({
+      user_id: id,
+      date_and_time: { $gte: todayDate },
+    })
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .populate(
+        'finance_user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .exec();
+  }
+
   async getMeetingsFinanceUserId(id: string) {
     return this.Meeting.find({ finance_user_id: id })
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .populate(
+        'finance_user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .exec();
+  }
+
+  async getMeetingsFinanceUserIdAndToday(id: string) {
+    let todayDate = moment()
+      .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+      .format();
+
+    let todayDate2 = moment()
+      .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+      .add('days', 1)
+      .format();
+    return this.Meeting.find({
+      finance_user_id: id,
+      date_and_time: { $gte: todayDate, $lt: todayDate2 },
+    })
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .populate(
+        'finance_user_id',
+        'profile_image user_type first_name last_name city state'
+      )
+      .exec();
+  }
+
+  async getMeetingsFinanceUserIdAndUpComming(id: string) {
+    let todayDate = moment()
+      .add('days', 1)
+      .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+      .format();
+
+    return this.Meeting.find({
+      finance_user_id: id,
+      date_and_time: { $gte: todayDate },
+    })
       .populate(
         'user_id',
         'profile_image user_type first_name last_name city state'
