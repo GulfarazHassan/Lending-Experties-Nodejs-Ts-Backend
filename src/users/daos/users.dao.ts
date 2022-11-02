@@ -32,7 +32,7 @@ class UsersDao {
     phone_number: { type: String },
     is_phone_number_confirmed: { type: Boolean, default: false },
     income_range: { type: String },
-    cra_qualified_badge: { type: String },
+    cra_qualified_badge: { type: String, default: '' },
     income_range_min: { type: Number },
     income_range_max: { type: Number },
     household_size: { type: Number },

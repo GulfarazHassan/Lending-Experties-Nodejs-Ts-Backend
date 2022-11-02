@@ -41,11 +41,11 @@ class MeetingDao {
     return this.Meeting.find({ user_id: id })
       .populate(
         'user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .exec();
   }
@@ -66,11 +66,11 @@ class MeetingDao {
     })
       .populate(
         'user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .exec();
   }
@@ -87,11 +87,11 @@ class MeetingDao {
     })
       .populate(
         'user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .exec();
   }
@@ -100,11 +100,11 @@ class MeetingDao {
     return this.Meeting.find({ finance_user_id: id })
       .populate(
         'user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .exec();
   }
@@ -124,11 +124,11 @@ class MeetingDao {
     })
       .populate(
         'user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .exec();
   }
@@ -145,21 +145,24 @@ class MeetingDao {
     })
       .populate(
         'user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name city state'
+        'profile_image user_type first_name last_name city state cra_qualified_badge'
       )
       .exec();
   }
 
   async getMeetingById(id: string) {
     return this.Meeting.findById(id)
-      .populate('user_id', 'profile_image user_type first_name last_name')
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name cra_qualified_badge'
+      )
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name'
+        'profile_image user_type first_name last_name cra_qualified_badge'
       )
       .exec();
   }
@@ -201,9 +204,12 @@ class MeetingDao {
     return this.Meeting.find()
       .populate(
         'finance_user_id',
-        'profile_image user_type first_name last_name'
+        'profile_image user_type first_name last_name cra_qualified_badge'
       )
-      .populate('user_id', 'profile_image user_type first_name last_name')
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name cra_qualified_badge'
+      )
       .exec();
   }
 }

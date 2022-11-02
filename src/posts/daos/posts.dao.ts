@@ -62,9 +62,12 @@ class PostsDao {
     return this.Post.find({ user_id: id })
       .populate(
         'post_comments.user_id',
-        'profile_image user_type first_name last_name'
+        'profile_image user_type first_name last_name cra_qualified_badge'
       )
-      .populate('user_id', 'profile_image user_type first_name last_name')
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name cra_qualified_badge'
+      )
       .exec();
   }
 
@@ -75,7 +78,10 @@ class PostsDao {
         'post_comments.user_id',
         'profile_image user_type first_name last_name'
       )
-      .populate('user_id', 'profile_image user_type first_name last_name')
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name cra_qualified_badge'
+      )
       .exec();
   }
 
@@ -83,9 +89,12 @@ class PostsDao {
     return this.Post.findById(id)
       .populate(
         'post_comments.user_id',
-        'profile_image user_type first_name last_name'
+        'profile_image user_type first_name last_name cra_qualified_badge'
       )
-      .populate('user_id', 'profile_image user_type first_name last_name')
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name cra_qualified_badge'
+      )
       .exec();
   }
 
@@ -116,9 +125,12 @@ class PostsDao {
     return this.Post.find()
       .populate(
         'post_comments.user_id',
-        'profile_image user_type first_name last_name'
+        'profile_image user_type first_name last_name cra_qualified_badge'
       )
-      .populate('user_id', 'profile_image user_type first_name last_name')
+      .populate(
+        'user_id',
+        'profile_image user_type first_name last_name cra_qualified_badge'
+      )
       .exec();
   }
 }
